@@ -11,10 +11,10 @@ const Navbar = () => {
 
                     <ul className='md:flex justify-between'>
                         <li className='mx-8'>
-                            <Link className="btn" to='/signup'>Signup</Link>
+                            <Link className="btn btn-secondary" to='/signup'>Signup</Link>
                         </li>
                         <li className='mx-8'>
-                            <Link className="btn" to='/login'>Login</Link>
+                            <Link className="btn btn-secondary" to='/login'>Login</Link>
                         </li>
                     </ul>
                 </div>
