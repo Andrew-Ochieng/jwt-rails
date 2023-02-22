@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"
 
 const Signup = () => {
     const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const handleForm = (e) => {
@@ -22,7 +24,7 @@ const Signup = () => {
     return ( 
         <>
             <div className="flex flex-col justify-center items-center min-h-screen">
-                <h1 className="font-bold uppercase md:text-2xl text-xl text-gray-800">Login</h1>
+                <h1 className="font-bold uppercase md:text-2xl text-xl text-gray-800">Signup</h1>
                 <form onSubmit={handleForm}>
                     <div>
                         <input 
@@ -31,6 +33,15 @@ const Signup = () => {
                             class="form-input"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)} 
+                        />
+                    </div>
+                    <div>
+                        <input 
+                            type="email" 
+                            placeholder="Enter email.." 
+                            class="form-input"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} 
                         />
                     </div>
                     <div>
@@ -46,6 +57,11 @@ const Signup = () => {
                         Submit
                     </button>
                 </form>
+
+                <p className="mt-4">
+                    Already Signed Up? 
+                    <Link to='/login' className="mx-2 text-green-500 font-semibold">Login</Link>
+                </p>
             </div>
         </>
      );
