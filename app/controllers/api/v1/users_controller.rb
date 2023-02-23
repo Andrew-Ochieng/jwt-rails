@@ -1,37 +1,29 @@
 class Api::V1::UsersController < ApplicationController
-    # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-    # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+    skip_before_action :authorized, only: [:create]
 
-    def index
-        render json: User.all, status: :ok
+    def profile
+        render json: { user: UserSerializer.new(current_user) }, status: :accepted
     end
 
-    # def show
-    #     user = User.find_by(id: params[:id])
-    #     render json: user, status: :ok
-    # end
-    
-    
     def create
         @user = User.create(user_params)
         if @user.valid?
-            token = encode_token({ user_id: @user.id })
-            render json: { user: @user, token: token }, status: :created, serializer: UserSerializer
+            @token = encode_token(user_id: @user.id)
+            render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
         else
-            render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+            render json: { error: 'failed to create user' }, status: :unprocessable_entity
         end
     end
 
-    private
 
-    def user_params
-        params.require(:user).permit(:username, :password, :email)   
+    def index
+        @users = User.all
+        render json: @users, status: :ok
     end
 
-    # def record_not_found
-    #     render json: { error: "User not found" }, status: :not_found
-    # end
-
-    
-    
+    private
+    def user_params
+        # params.require(:@user).permit(:username, :password)
+        params.permit(:username, :password)
+    end
 end

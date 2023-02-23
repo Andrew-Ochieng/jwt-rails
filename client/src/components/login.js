@@ -7,6 +7,7 @@ const Login = () => {
 
     const handleForm = (e) => {
         e.preventDefault();
+        e.target.reset();   
 
         fetch('/login', {
             method: "POST",
@@ -36,7 +37,7 @@ const Login = () => {
                     </div>
                     <div>
                         <input 
-                            type="text" 
+                            type="password" 
                             placeholder="Enter password.." 
                             class="form-input"
                             value={password}
